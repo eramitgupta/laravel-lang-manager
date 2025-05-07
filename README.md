@@ -8,11 +8,11 @@
 
 LaravelLangSyncInertia is the perfect solution for Laravel developers using Inertia.js with Vue or React. It helps you:
 
-✅ Easily manage language files  
-✅ Dynamically sync translations with Inertia.js  
-✅ Reduce boilerplate for loading translations  
-✅ Automatically share translations with all pages  
-✅ Improve performance with smart caching  
+✅ Easily manage language files
+✅ Dynamically sync translations with Inertia.js
+✅ Reduce boilerplate for loading translations
+✅ Automatically share translations with all pages
+✅ Improve performance with smart caching
 
 ---
 
@@ -33,7 +33,7 @@ Install the package via Composer:
 
 ```bash
 composer require erag/laravel-lang-sync-inertia
-````
+```
 
 ---
 
@@ -54,25 +54,74 @@ This publishes:
 
 ## 🚀 Usage
 
-### 1️⃣ Load a Single File
+### 🔟 Where to Use `lang_file_load()`?
 
-```php
-lang_file_load('auth');
-```
-
-### 2️⃣ Load Multiple Files
-
-```php
-lang_file_load(['auth', 'login']);
-```
-
-These functions load translation files dynamically based on the current locale.
+Call `lang_file_load()` **inside your controller method** **before returning an Inertia view**. This ensures the necessary language files are loaded and shared with the frontend.
 
 ---
 
-## 🖥️ Access in Vue/React Components
+### 1️⃣ Load a Single File
 
-#### ✅ Vue Example:
+📍 **Example in Controller:**
+
+```php
+use Inertia\Inertia;
+
+public function index()
+{
+    lang_file_load('auth'); // Load a single language file
+
+    return Inertia::render('Dashboard');
+}
+```
+
+✅ This loads `resources/lang/{locale}/auth.php` and makes the translations available to your Vue or React component.
+
+---
+
+### 2️⃣ Load Multiple Files
+
+📍 **Example in Controller:**
+
+```php
+use Inertia\Inertia;
+
+public function profile()
+{
+    lang_file_load(['auth', 'profile']); // Load multiple files
+
+    return Inertia::render('Profile');
+}
+```
+
+✅ This loads both `auth.php` and `profile.php` based on the active locale.
+
+---
+
+### 3️⃣ Load Based on Condition
+
+```php
+use Inertia\Inertia;
+
+public function show($type)
+{
+    if ($type === 'admin') {
+        lang_file_load(['admin', 'auth']);
+    } else {
+        lang_file_load(['user', 'auth']);
+    }
+
+    return Inertia::render('UserTypePage');
+}
+```
+
+✅ Useful when different views or modules require different translation files.
+
+---
+
+## 💡 Vue/React Component Usage
+
+### ✅ Vue Example:
 
 ```vue
 <template>
@@ -185,5 +234,3 @@ Licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 Pull requests and issues are welcome!
 Let’s make localization in Laravel even better 💬
-
----
