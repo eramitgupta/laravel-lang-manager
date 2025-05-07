@@ -16,8 +16,16 @@ class InstallLang extends Command
             '--tag' => 'erag:publish-lang-config',
             '--force' => true,
         ]);
+        $this->info('✅ configuration published successfully.');
+        $this->newLine();
 
-        $this->info('✅ Language configuration published successfully.');
+        $this->info('📦 Publishing JS composable...');
+        $this->call('vendor:publish', [
+            '--tag' => 'erag:publish-lang-composable',
+            '--force' => true,
+        ]);
+        $this->info('✅ JS composable published successfully.');
+
         $this->newLine();
         $this->info('🎉 LaravelLangSyncInertia installation completed!');
     }

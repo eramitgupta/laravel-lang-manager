@@ -47,6 +47,11 @@ class LaravelLangSyncInertiaServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/lang-manager.php' => config_path('lang-manager.php'),
         ], 'erag:publish-lang-config');
+        
+        $this->publishes([
+            __DIR__ . '/../resources/js/composables/useLang.ts' => resource_path('js/composables/useLang.ts'),
+        ], 'erag:publish-lang-composable');
+
     }
 
     protected function loadHelpers(): void
