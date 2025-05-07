@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 class InstallLang extends Command
 {
     protected $signature = 'erag:install-lang';
+
     protected $description = '📦 Publish language configuration and initialize LaravelLangSyncInertia.';
 
     public function handle()

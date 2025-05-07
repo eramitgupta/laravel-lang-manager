@@ -21,7 +21,6 @@ class LangService
         return $this->loaded[$file];
     }
 
-
     public function getFile(string|array $files): array
     {
         $files = (array) $files;

@@ -2,8 +2,8 @@
 
 namespace LaravelLangSyncInertia\Middleware;
 
-use Inertia\Inertia;
 use Closure;
+use Inertia\Inertia;
 use LaravelLangSyncInertia\Facades\Lang;
 
 class ShareLangTranslations
@@ -12,7 +12,7 @@ class ShareLangTranslations
     {
         $translations = Lang::getLoaded();
 
-        if (!empty($translations)) {
+        if (! empty($translations)) {
             Inertia::share([
                 'lang' => $translations,
             ]);

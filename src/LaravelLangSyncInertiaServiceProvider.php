@@ -30,7 +30,7 @@ class LaravelLangSyncInertiaServiceProvider extends ServiceProvider
     protected function mergeConfig(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/lang-manager.php',
+            __DIR__.'/../config/lang-manager.php',
             'lang-manager'
         );
     }
@@ -45,18 +45,18 @@ class LaravelLangSyncInertiaServiceProvider extends ServiceProvider
     protected function publishConfig(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/lang-manager.php' => config_path('lang-manager.php'),
+            __DIR__.'/../config/lang-manager.php' => config_path('lang-manager.php'),
         ], 'erag:publish-lang-config');
-        
+
         $this->publishes([
-            __DIR__ . '/../resources/js/composables/useLang.ts' => resource_path('js/composables/useLang.ts'),
+            __DIR__.'/../resources/js/composables/useLang.ts' => resource_path('js/composables/useLang.ts'),
         ], 'erag:publish-lang-composable');
 
     }
 
     protected function loadHelpers(): void
     {
-        $helpers = __DIR__ . '/LangHelpers.php';
+        $helpers = __DIR__.'/LangHelpers.php';
 
         if (is_file($helpers)) {
             require_once $helpers;

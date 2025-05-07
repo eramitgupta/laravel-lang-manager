@@ -12,7 +12,6 @@ class Lang extends Facade
      * @method static array getFile(string $file)
      * @method static array getLoaded()
      */
-
     protected static function getFacadeAccessor(): string
     {
         return LangService::class;
