@@ -1,0 +1,52 @@
+{
+    "name": "erag/laravel-lang-sync-inertia",
+    "description": "A Laravel package for syncing and managing language translations with Inertia.js integration, allowing easy management of multi-language support in Laravel applications.",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "translations",
+        "localization",
+        "multi-language",
+        "lang-sync",
+        "laravel-inertia",
+        "lang-manager",
+        "laravel-lang-sync",
+        "lang-sync-inertia",
+        "language-files",
+        "dynamic-translations",
+        "language-helper"
+    ],
+    "authors": [
+        {
+            "name": "Er Amit Gupta",
+            "email": "info.eramitgupta@gmail.com",
+            "homepage": "https://github.com/eramitgupta"
+        }
+    ],
+    "require": {
+        "php": ">=8.1.0",
+        "laravel/pint": "^1.13",
+        "illuminate/filesystem": "^8.12|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0",
+        "inertiajs/inertia-laravel": "^1.3|^2.0"
+    },
+    "autoload": {
+        "files": [
+            "src/LangHelpers.php"
+        ],
+        "psr-4": {
+            "LaravelLangSyncInertia\\": "src/"
+        }
+    },
+    "prefer-stable": true,
+    "extra": {
+        "laravel": {
+            "providers": [
+                "LaravelLangSyncInertia\\LaravelLangSyncInertiaServiceProvider"
+            ],
+            "aliases": {
+                "Lang": "LaravelLangSyncInertia\\Facades\\Lang"
+            }
+        }
+    }
+}
