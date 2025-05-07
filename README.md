@@ -6,13 +6,13 @@
 
 ## ❓ Why Use LaravelLangSyncInertia?
 
-LaravelLangSyncInertia is the perfect solution for Laravel developers using Inertia.js with Vue or React. It helps you:
+This package is perfect for Laravel developers using Inertia.js with **Vue** or **React**. It helps you:
 
-✅ Easily manage language files
-✅ Dynamically sync translations with Inertia.js
-✅ Reduce boilerplate for loading translations
-✅ Automatically share translations with all pages
-✅ Improve performance with smart caching
+* ✅ Easily manage language files
+* ✅ Dynamically sync translations with Inertia.js
+* ✅ Reduce boilerplate for loading translations
+* ✅ Automatically share translations with all pages
+* ✅ Improve performance with smart caching
 
 ---
 
@@ -29,7 +29,7 @@ LaravelLangSyncInertia is the perfect solution for Laravel developers using Iner
 
 ## 📦 Installation
 
-Install the package via Composer:
+To install the package, run the following command via Composer:
 
 ```bash
 composer require erag/laravel-lang-sync-inertia
@@ -39,16 +39,19 @@ composer require erag/laravel-lang-sync-inertia
 
 ## 🛠️ Publish Configuration & Composables
 
-Run the install command:
+To publish the configuration and composables, run:
 
 ```bash
 php artisan erag:install-lang
 ```
 
-This publishes:
+This will publish:
 
-* ✅ `config/lang-manager.php` — for customizing language path
-* ✅ `resources/js/composables/useLang.ts` — Vue/React composable for frontend translations
+* ✅ `config/lang-manager.php` — for customizing the language path
+* ✅ `resources/js/composables/useLang.ts` — for Vue (if selected)
+* ✅ `resources/js/hooks/useLang.tsx` — for React (if selected)
+
+During installation, you'll be prompted to choose either **Vue** or **React** for your frontend framework.
 
 ---
 
@@ -56,7 +59,7 @@ This publishes:
 
 ### 🔟 Where to Use `lang_file_load()`?
 
-Call `lang_file_load()` **inside your controller method** **before returning an Inertia view**. This ensures the necessary language files are loaded and shared with the frontend.
+Call `lang_file_load()` **inside your controller method** **before rendering an Inertia view** to load necessary language files and share them with the frontend.
 
 ---
 
@@ -75,7 +78,7 @@ public function index()
 }
 ```
 
-✅ This loads `resources/lang/{locale}/auth.php` and makes the translations available to your Vue or React component.
+✅ This loads `resources/lang/{locale}/auth.php` and makes translations available to Vue or React components.
 
 ---
 
@@ -115,13 +118,13 @@ public function show($type)
 }
 ```
 
-✅ Useful when different views or modules require different translation files.
+✅ This approach allows dynamic loading of translation files based on conditions.
 
 ---
 
-## 💡 Vue/React Component Usage
+## 🖥️ Frontend Usage
 
-### ✅ Vue Example:
+### ✅ Vue Example
 
 ```vue
 <template>
@@ -140,10 +143,40 @@ const { trans, __ } = useLang()
 
 ---
 
+### ✅ React Example
+
+```tsx
+import React from 'react'
+import { useLang } from '@/hooks/useLang'
+
+export default function Dashboard() {
+    const { trans, __ } = useLang()
+
+    return (
+        <div>
+            <h1>{__('auth.name')}</h1>
+            <p>{trans('auth.greeting', { name: 'Amit' })}</p>
+        </div>
+    )
+}
+```
+
+---
+
 ## 📡 Access Inertia Shared Props
 
-```js
+**Vue:**
+
+```ts
 import { usePage } from '@inertiajs/vue3'
+
+const { lang } = usePage().props
+```
+
+**React:**
+
+```tsx
+import { usePage } from '@inertiajs/react'
 
 const { lang } = usePage().props
 ```
@@ -152,9 +185,9 @@ You can directly access the full language object shared by Inertia.
 
 ---
 
-## 🧠 Translation Placeholder Examples
+## 🧠 Placeholder Support in Translations
 
-### 🗂️ Example Translation File: `lang/en/auth.php`
+### 🔤 Example: `lang/en/auth.php`
 
 ```php
 return [
@@ -162,31 +195,19 @@ return [
 ];
 ```
 
-### 🧩 Vue/React Usage:
+### Usage in Vue/React:
 
 ```js
-<p>{{ trans('auth.welcome', { name: 'John' }) }}</p>
-```
-
-OR:
-
-```js
-<p>{{ __('auth.welcome', { name: 'John' }) }}</p>
-```
-
-You can also pass a simple string:
-
-```js
-<p>{{ __('auth.welcome', 'Vue') }}</p>
+trans('auth.welcome', { name: 'John' })
+__('auth.welcome', { name: 'John' })
+__('auth.welcome', 'Vue') // For plain string
 ```
 
 ---
 
 ## 🗂️ Translation File Location
 
-Language files are loaded based on the current Laravel locale. By default, Laravel uses the `resources/lang/{locale}` structure.
-
-📁 Directory structure example:
+Language files are loaded based on the current Laravel locale. By default, Laravel uses `resources/lang/{locale}` structure:
 
 ```
 resources/lang/
@@ -196,23 +217,19 @@ resources/lang/
 │   └── auth.php
 ```
 
-When using:
+When calling:
 
 ```php
 lang_file_load('auth');
 ```
 
-It loads:
-
-```
-resources/lang/en/auth.php   // If 'en' is the current app locale
-```
+It dynamically loads `resources/lang/{locale}/auth.php`.
 
 ---
 
 ## ⚙️ Configuration
 
-Located at: `config/lang-manager.php`
+You can customize the language directory by modifying `config/lang-manager.php`:
 
 ```php
 return [
@@ -220,17 +237,26 @@ return [
 ];
 ```
 
-You can update this to a custom path if needed.
+---
+
+## 🧩 Composables Location
+
+* **Vue:** `resources/js/composables/useLang.ts`
+* **React:** `resources/js/hooks/useLang.tsx`
+
+You can modify the location or structure of these files by adjusting the published files.
 
 ---
 
 ## 📄 License
 
-Licensed under the [MIT License](https://opensource.org/licenses/MIT).
+This package is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 ---
 
 ## 🤝 Contributing
 
 Pull requests and issues are welcome!
-Let’s make localization in Laravel even better 💬
+Let’s work together to improve localization in Laravel! 💬
+
+---
