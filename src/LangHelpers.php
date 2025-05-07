@@ -2,13 +2,13 @@
 
 use LaravelLangSyncInertia\Facades\Lang;
 
-if (! function_exists('lang_file_load')) {
+if (! function_exists('syncLangFiles')) {
     /**
      * Load one or multiple language files.
      *
      * @return array<string, mixed>
      */
-    function lang_file_load(string|array $fileName): array
+    function syncLangFiles(string|array $fileName): array
     {
         return Lang::getFile($fileName);
     }

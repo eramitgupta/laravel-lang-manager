@@ -57,9 +57,9 @@ During installation, you'll be prompted to choose either **Vue** or **React** fo
 
 ## 🚀 Usage
 
-### 🔟 Where to Use `lang_file_load()`?
+### 🔟 Where to Use `syncLangFiles()`?
 
-Call `lang_file_load()` **inside your controller method** **before rendering an Inertia view** to load necessary language files and share them with the frontend.
+Call `syncLangFiles()` **inside your controller method** **before rendering an Inertia view** to load necessary language files and share them with the frontend.
 
 ---
 
@@ -72,7 +72,7 @@ use Inertia\Inertia;
 
 public function index()
 {
-    lang_file_load('auth'); // Load a single language file
+    syncLangFiles('auth'); // Load a single language file
 
     return Inertia::render('Dashboard');
 }
@@ -91,7 +91,7 @@ use Inertia\Inertia;
 
 public function profile()
 {
-    lang_file_load(['auth', 'profile']); // Load multiple files
+    syncLangFiles(['auth', 'profile']); // Load multiple files
 
     return Inertia::render('Profile');
 }
@@ -109,9 +109,9 @@ use Inertia\Inertia;
 public function show($type)
 {
     if ($type === 'admin') {
-        lang_file_load(['admin', 'auth']);
+        syncLangFiles(['admin', 'auth']);
     } else {
-        lang_file_load(['user', 'auth']);
+        syncLangFiles(['user', 'auth']);
     }
 
     return Inertia::render('UserTypePage');
@@ -220,7 +220,7 @@ resources/lang/
 When calling:
 
 ```php
-lang_file_load('auth');
+syncLangFiles('auth');
 ```
 
 It dynamically loads `resources/lang/{locale}/auth.php`.
