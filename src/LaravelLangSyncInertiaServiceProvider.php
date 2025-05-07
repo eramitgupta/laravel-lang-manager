@@ -50,7 +50,12 @@ class LaravelLangSyncInertiaServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/../resources/js/composables/useLang.ts' => resource_path('js/composables/useLang.ts'),
-        ], 'erag:publish-lang-composable');
+        ], 'erag:publish-lang-composable-vue');
+
+
+        $this->publishes([
+            __DIR__ . '/../resources/js/hooks/useLang.tsx' => resource_path('js/hooks/useLang.tsx'),
+        ], 'erag:publish-lang-composable-react');
 
     }
 
