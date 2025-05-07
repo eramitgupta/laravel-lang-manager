@@ -1,8 +1,10 @@
 # 🌐 Laravel Lang Sync Inertia (Vue.js / React)
 
+![Untitled design](https://github.com/user-attachments/assets/bbefb4c4-e435-45ab-954a-17eafa1405ee)
+
 **LaravelLangSyncInertia** is a Laravel package designed to **sync and manage language translations** with **Inertia.js** integration. It simplifies multi-language support in Laravel applications, making it easier to work with dynamic language files and frontend translations seamlessly.
 
----![Untitled design](https://github.com/user-attachments/assets/bbefb4c4-e435-45ab-954a-17eafa1405ee)
+---
 
 
 ## ❓ Why Use LaravelLangSyncInertia?
