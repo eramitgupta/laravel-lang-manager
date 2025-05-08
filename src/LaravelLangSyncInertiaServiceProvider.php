@@ -30,7 +30,7 @@ class LaravelLangSyncInertiaServiceProvider extends ServiceProvider
     protected function mergeConfig(): void
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/lang-manager.php',
+            __DIR__.'/../config/inertia-lang.php',
             'lang-manager'
         );
     }
@@ -45,7 +45,7 @@ class LaravelLangSyncInertiaServiceProvider extends ServiceProvider
     protected function publishConfig(): void
     {
         $this->publishes([
-            __DIR__.'/../config/lang-manager.php' => config_path('lang-manager.php'),
+            __DIR__.'/../config/inertia-lang.php' => config_path('inertia-lang.php'),
         ], 'erag:publish-lang-config');
 
         $this->publishes([
