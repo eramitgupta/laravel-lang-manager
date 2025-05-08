@@ -50,7 +50,7 @@ php artisan erag:install-lang
 
 This will publish:
 
-* ✅ `config/lang-manager.php` — for customizing the language path
+* ✅ `config/inertia-lang.php` — for customizing the language path
 * ✅ `resources/js/composables/useLang.ts` — for Vue (if selected)
 * ✅ `resources/js/hooks/useLang.tsx` — for React (if selected)
 
@@ -58,82 +58,60 @@ During installation, you'll be prompted to choose either **Vue** or **React** fo
 
 ---
 
-## 🚀 Usage
+## 🚀 Usage Guide: `syncLangFiles()`
 
-### 🔟 Where to Use `syncLangFiles()`?
+The `syncLangFiles()` function is a Laravel helper provided by this package. Use it inside your **controller methods** to load translation files and automatically **share them with your Vue or React frontend via Inertia.js**.
 
-Call `syncLangFiles()` **inside your controller method** **before rendering an Inertia view** to load necessary language files and share them with the frontend.
+> ✅ Think of `syncLangFiles()` as a bridge between Laravel’s backend translations and your Inertia-powered frontend.
 
 ---
 
-### 1️⃣ Load a Single File
+### 🧪 How It Works
 
-📍 **Example in Controller:**
+Suppose you have the following language file:
+
+📁 **`resources/lang/en/auth.php`**
+
+```php
+return [
+    'welcome' => 'Welcome, {name}!',
+    'greeting' => 'Hello!',
+];
+```
+
+Now, you want to show `auth.welcome` and `auth.greeting` on the frontend using Vue or React.
+
+---
+
+### 🔁 Step-by-Step Example
+
+#### 🔹 1. Load Translations in Controller
 
 ```php
 use Inertia\Inertia;
 
-public function index()
+public function dashboard()
 {
-    syncLangFiles('auth'); // Load a single language file
+    // Load the auth.php language file
+    syncLangFiles('auth');
 
     return Inertia::render('Dashboard');
 }
 ```
 
-✅ This loads `resources/lang/{locale}/auth.php` and makes translations available to Vue or React components.
+🧠 This loads the file `resources/lang/en/auth.php` based on the current Laravel locale and shares its content with Inertia.
 
 ---
 
-### 2️⃣ Load Multiple Files
+### 💡 Frontend Usage
 
-📍 **Example in Controller:**
-
-```php
-use Inertia\Inertia;
-
-public function profile()
-{
-    syncLangFiles(['auth', 'profile']); // Load multiple files
-
-    return Inertia::render('Profile');
-}
-```
-
-✅ This loads both `auth.php` and `profile.php` based on the active locale.
-
----
-
-### 3️⃣ Load Based on Condition
-
-```php
-use Inertia\Inertia;
-
-public function show($type)
-{
-    if ($type === 'admin') {
-        syncLangFiles(['admin', 'auth']);
-    } else {
-        syncLangFiles(['user', 'auth']);
-    }
-
-    return Inertia::render('UserTypePage');
-}
-```
-
-✅ This approach allows dynamic loading of translation files based on conditions.
-
----
-
-## 🖥️ Frontend Usage
-
-### ✅ Vue Example
+#### ✅ Vue Example
 
 ```vue
 <template>
     <div>
-        <h1>{{ __('auth.name') }}</h1>
-        <p>{{ trans('auth.greeting', { name: 'Amit' }) }}</p>
+        <h1>{{ __('auth.greeting') }}</h1>
+        <p>{{ trans('auth.welcome', { name: 'John' }) }}</p>
     </div>
 </template>
 
@@ -144,9 +122,7 @@ const { trans, __ } = useLang()
 </script>
 ```
 
----
-
-### ✅ React Example
+#### ✅ React Example
 
 ```tsx
 import React from 'react'
@@ -157,11 +133,52 @@ export default function Dashboard() {
 
     return (
         <div>
-            <h1>{__('auth.name')}</h1>
-            <p>{trans('auth.greeting', { name: 'Amit' })}</p>
+            <h1>{__('auth.greeting')}</h1>
+            <p>{trans('auth.welcome', { name: 'John' })}</p>
         </div>
     )
 }
+```
+
+---
+
+### 📤 Output on Page
+
+When the above code is rendered, this will be the output:
+
+```
+Hello!
+Welcome, John!
+```
+
+---
+
+### 🧠 Notes on `trans()` vs `__()`
+
+| Function  | Use Case | Description                                                  |
+| --------- | -------- | ------------------------------------------------------------ |
+| `trans()` | Advanced | Use when you need to pass dynamic placeholders like `{name}` |
+| `__()`    | Simple   | Shortcut for quick access to translated strings              |
+
+✅ You can use them interchangeably for basic translations.
+✅ Both support placeholder replacement.
+
+---
+
+### 🛠 Example with Plain String
+
+Sometimes, you might want to append something without a key:
+
+```js
+__('auth.welcome', 'Vue Developer')
+// Output: "Welcome, {name}! Vue Developer" (if placeholder is not used)
+```
+
+But recommended usage is always with an object:
+
+```js
+trans('auth.welcome', { name: 'Amit' })
+// Output: "Welcome, Amit!"
 ```
 
 ---
@@ -185,26 +202,6 @@ const { lang } = usePage().props
 ```
 
 You can directly access the full language object shared by Inertia.
-
----
-
-## 🧠 Placeholder Support in Translations
-
-### 🔤 Example: `lang/en/auth.php`
-
-```php
-return [
-    'welcome' => 'Welcome, {name}!',
-];
-```
-
-### Usage in Vue/React:
-
-```js
-trans('auth.welcome', { name: 'John' })
-__('auth.welcome', { name: 'John' })
-__('auth.welcome', 'Vue') // For plain string
-```
 
 ---
 
@@ -232,7 +229,7 @@ It dynamically loads `resources/lang/{locale}/auth.php`.
 
 ## ⚙️ Configuration
 
-You can customize the language directory by modifying `config/lang-manager.php`:
+You can customize the language directory by modifying `config/inertia-lang.php`:
 
 ```php
 return [
@@ -261,5 +258,3 @@ This package is licensed under the [MIT License](https://opensource.org/licenses
 
 Pull requests and issues are welcome!
 Let’s work together to improve localization in Laravel! 💬
-
----
