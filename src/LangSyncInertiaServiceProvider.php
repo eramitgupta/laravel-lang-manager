@@ -10,7 +10,7 @@ use LaravelLangSyncInertia\Commands\InstallLang;
 use LaravelLangSyncInertia\Facades\Lang;
 use LaravelLangSyncInertia\Middleware\ShareLangTranslations;
 
-class LaravelLangSyncInertiaServiceProvider extends ServiceProvider
+class LangSyncInertiaServiceProvider extends ServiceProvider
 {
     public function register(): void
     {

@@ -42,7 +42,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "LaravelLangSyncInertia\\LaravelLangSyncInertiaServiceProvider"
+                "LaravelLangSyncInertia\\LangSyncInertiaServiceProvider"
             ],
             "aliases": {
                 "Lang": "LaravelLangSyncInertia\\Facades\\Lang"
