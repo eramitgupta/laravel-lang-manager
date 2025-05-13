@@ -91,12 +91,12 @@ Now, you want to show `auth.welcome` and `auth.greeting` on the frontend using V
 ```php
 use Inertia\Inertia;
 
-public function dashboard()
+public function login()
 {
     // Load the auth.php language file
     syncLangFiles('auth');
 
-    return Inertia::render('Dashboard');
+    return Inertia::render('Login');
 }
 ```
 
@@ -129,7 +129,7 @@ const { trans, __ } = useLang()
 import React from 'react'
 import { useLang } from '@/hooks/useLang'
 
-export default function Dashboard() {
+export default function Login() {
     const { trans, __ } = useLang()
 
     return (
