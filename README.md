@@ -1,4 +1,4 @@
-# 🌐 Easy Laravel Translate Sync Inertia (Vue.js / React)
+# 🌐 Laravel Easy Translation Sync with Inertia (Vue.js / React)
 
 ![Untitled design](https://github.com/user-attachments/assets/bbefb4c4-e435-45ab-954a-17eafa1405ee)
 
