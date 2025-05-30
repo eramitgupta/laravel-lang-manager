@@ -52,6 +52,30 @@ The `syncLangFiles()` function is a Laravel helper provided by this package. Use
 
 ---
 
+### 🧠 How to Use
+
+```php
+// Load and sync a single translation file
+syncLangFiles('auth');
+
+// Load and sync multiple translation files
+syncLangFiles(['auth', 'validation', 'pagination']);
+```
+
+---
+
+### ✅ Supported Inputs
+
+The `syncLangFiles()` function supports:
+
+* A **string**: For a single translation file
+  → `syncLangFiles('auth')`
+
+* An **array of strings**: For multiple translation files
+  → `syncLangFiles(['auth', 'validation'])`
+
+---
+
 ### 🧪 How It Works
 
 Suppose you have the following language file:
