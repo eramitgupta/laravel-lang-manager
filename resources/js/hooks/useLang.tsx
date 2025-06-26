@@ -35,11 +35,11 @@ export function useLang() {
 
     function getValueFromKey(key: string): string | undefined {
         const segments = key.split('.')
-        let current: any = lang
+        let current: LangValue | undefined = lang
 
         for (const segment of segments) {
             if (typeof current !== 'object' || current === null) return undefined
-            current = current[segment]
+            current = current[segment] as LangValue | undefined
         }
 
         return typeof current === 'string' ? current : undefined
